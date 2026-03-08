@@ -224,3 +224,35 @@ document.getElementById("result").innerText=JSON.stringify(data,null,2);
 <div id="multi"></div>
 
 </div>
+<h2>Live Market</h2>
+
+<button onclick="loadMarket()">Load Market</button>
+
+<div id="market"></div>
+<script>
+
+async function loadMarket(){
+
+let res = await fetch("/api/market");
+
+let data = await res.json();
+
+let html="";
+
+data.forEach(s=>{
+
+html += `
+<div>
+<b>${s.name}</b>
+₹${s.price}
+(${s.change.toFixed(2)}%)
+</div>
+`;
+
+});
+
+document.getElementById("market").innerHTML=html;
+
+}
+
+</script>
