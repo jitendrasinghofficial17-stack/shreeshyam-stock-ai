@@ -16,14 +16,17 @@ const change = stockData.regularMarketChangePercent;
 
 let signal = "HOLD";
 let score = 5;
+let multibagger = "LOW";
 
 if(change > 2){
 signal = "BUY";
 score = 8;
+multibagger = "HIGH";
 }
 else if(change < -2){
 signal = "SELL";
 score = 3;
+multibagger = "LOW";
 }
 
 res.status(200).json({
@@ -31,7 +34,8 @@ stock: stock,
 price: price,
 change: change,
 aiScore: score,
-signal: signal
+signal: signal,
+multibaggerProbability: multibagger
 });
 
 } catch (error) {
