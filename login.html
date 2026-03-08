@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Login</title>
+
+<style>
+
+body{
+background:black;
+color:white;
+text-align:center;
+font-family:Arial;
+margin-top:100px;
+}
+
+input{
+padding:10px;
+margin:10px;
+}
+
+button{
+padding:10px 20px;
+background:orange;
+border:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Login</h1>
+
+<input id="email" placeholder="Email"><br>
+<input id="pass" type="password" placeholder="Password"><br>
+
+<button onclick="login()">Login</button>
+
+<script>
+
+function login(){
+
+let email=document.getElementById("email").value;
+let pass=document.getElementById("pass").value;
+
+if(email=="admin@ai.com" && pass=="1234"){
+
+localStorage.setItem("user","logged");
+
+window.location="dashboard.html";
+
+}
+
+else{
+
+alert("Wrong login");
+
+}
+
+}
+
+</script>
+
+</body>
+
+</html>
