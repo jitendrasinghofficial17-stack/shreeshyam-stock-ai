@@ -1,61 +1,112 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-<title>Login</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ShreeShyam AI Login</title>
 
 <style>
 
 body{
-background:black;
-color:white;
+font-family: Arial;
+background:#0b132b;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.login-box{
+background:white;
+padding:40px;
+border-radius:10px;
+width:320px;
 text-align:center;
-font-family:Arial;
-margin-top:100px;
+box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+h2{
+margin-bottom:20px;
 }
 
 input{
-padding:10px;
-margin:10px;
+width:100%;
+padding:12px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:5px;
 }
 
 button{
-padding:10px 20px;
-background:orange;
+width:100%;
+padding:12px;
+background:#00c853;
 border:none;
+color:white;
+font-size:16px;
+border-radius:6px;
+cursor:pointer;
+}
+
+button:hover{
+background:#009624;
+}
+
+.subscribe{
+margin-top:15px;
+display:block;
+color:#0066ff;
+text-decoration:none;
 }
 
 </style>
-
 </head>
 
 <body>
 
-<h1>Login</h1>
+<div class="login-box">
 
-<input id="email" placeholder="Email"><br>
-<input id="pass" type="password" placeholder="Password"><br>
+<h2>ShreeShyamStockAI</h2>
+
+<p>Login to access Premium Dashboard</p>
+
+<input type="email" id="email" placeholder="Enter Email">
+
+<input type="password" id="password" placeholder="Enter Password">
 
 <button onclick="login()">Login</button>
+
+<a class="subscribe" href="subscribe.html">
+Subscribe ₹2999 / Month
+</a>
+
+</div>
 
 <script>
 
 function login(){
 
 let email=document.getElementById("email").value;
-let pass=document.getElementById("pass").value;
+let password=document.getElementById("password").value;
 
-if(email=="admin@ai.com" && pass=="1234"){
+if(email=="" || password==""){
+alert("Please enter email and password");
+return;
+}
 
-localStorage.setItem("user","logged");
+if(email=="admin@shreeshyam.com" && password=="123456"){
 
-window.location="dashboard.html";
+window.location.href="dashboard.html";
 
 }
 
 else{
 
-alert("Wrong login");
+alert("Invalid Login. Please subscribe first.");
+
+window.location.href="subscribe.html";
 
 }
 
@@ -64,5 +115,4 @@ alert("Wrong login");
 </script>
 
 </body>
-
 </html>
