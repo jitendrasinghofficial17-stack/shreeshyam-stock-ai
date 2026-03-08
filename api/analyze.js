@@ -11,10 +11,27 @@ const data = await response.json();
 
 const stockData = data.quoteResponse.result[0];
 
+const price = stockData.regularMarketPrice;
+const change = stockData.regularMarketChangePercent;
+
+let signal = "HOLD";
+let score = 5;
+
+if(change > 2){
+signal = "BUY";
+score = 8;
+}
+else if(change < -2){
+signal = "SELL";
+score = 3;
+}
+
 res.status(200).json({
 stock: stock,
-price: stockData.regularMarketPrice,
-change: stockData.regularMarketChangePercent
+price: price,
+change: change,
+aiScore: score,
+signal: signal
 });
 
 } catch (error) {
