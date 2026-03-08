@@ -1,14 +1,3 @@
-<script>
-
-if(localStorage.getItem("user")!="logged"){
-
-window.location="login.html";
-
-}
-<a href="premium.html">
-<button>Upgrade to Premium</button>
-</a>
-</script>
 <!DOCTYPE html>
 <html>
 
@@ -19,229 +8,47 @@ window.location="login.html";
 <style>
 
 body{
-background:#0b0f19;
+background:#0b0b0b;
 color:white;
 font-family:Arial;
-margin:0;
+text-align:center;
 }
 
-.topbar{
-background:black;
-padding:15px;
-display:flex;
-justify-content:space-between;
-font-size:18px;
-}
-
-.container{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:20px;
-padding:20px;
-}
-
-.card{
-background:#111827;
-padding:20px;
-border-radius:10px;
-}
-
-input{
-padding:10px;
-margin-top:10px;
+h1{
+margin-top:30px;
 }
 
 button{
-padding:10px;
-margin-left:5px;
-background:#00ff9c;
+padding:12px 25px;
+margin:10px;
+background:orange;
 border:none;
+font-size:16px;
 cursor:pointer;
 }
 
-.green{color:#00ff9c}
-.red{color:#ff4c4c}
+.card{
+border:1px solid gray;
+padding:20px;
+margin:20px;
+}
 
 </style>
 
-</head>
-
-<body>
-
-<div class="topbar">
-<div>ShreeShyam Stock AI Terminal</div>
-<div>NIFTY <span class="green">+0.72%</span></div>
-</div>
-
-
-<div class="container">
-
-<!-- Stock Search -->
-
-<div class="card">
-
-<h3>Stock Search</h3>
-
-<input id="stock" placeholder="Enter stock name">
-
-<button onclick="analyze()">Analyze</button>
-
-<div id="result"></div>
-
-</div>
-
-
-<!-- Live Chart -->
-
-<div class="card">
-
-<h3>Live Stock Chart</h3>
-
-<div id="tradingview_chart"></div>
-
-<script src="https://s3.tradingview.com/tv.js"></script>
-
 <script>
 
-new TradingView.widget({
-
-width:"100%",
-
-height:400,
-
-symbol:"NSE:TCS",
-
-interval:"D",
-
-timezone:"Asia/Kolkata",
-
-theme:"dark",
-
-style:"1",
-
-locale:"en",
-
-toolbar_bg:"#111827",
-
-enable_publishing:false,
-
-container_id:"tradingview_chart"
-
-});
-
-</script>
-
-</div>
-
-
-<!-- Market Heatmap -->
-
-<div class="card">
-
-<h3>Market Heatmap</h3>
-
-<iframe
-src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_heatmap"
-width="100%"
-height="400"
-frameborder="0">
-</iframe>
-
-</div>
-
-
-<!-- AI Screener -->
-
-<div class="card">
-
-<h3>AI Stock Screener</h3>
-
-<ul>
-
-<li>RELIANCE - AI Score 8.4</li>
-
-<li>TCS - AI Score 8.1</li>
-
-<li>INFY - AI Score 7.9</li>
-
-<li>HDFC BANK - AI Score 7.7</li>
-
-<li>ICICI BANK - AI Score 7.5</li>
-
-</ul>
-
-</div>
-
-
-<!-- AI Analysis Panel -->
-
-<div class="card">
-
-<h3>AI Analysis</h3>
-
-<p>AI Score: 8.2</p>
-
-<p>Trend: Bullish</p>
-
-<p>Risk: Medium</p>
-
-</div>
-
-
-<!-- Multibagger Watch -->
-
-<div class="card">
-
-<h3>Multibagger Watch</h3>
-
-<p>KPIT Technologies</p>
-
-<p>CG Power</p>
-
-<p>Kaynes Technologies</p>
-
-</div>
-
-</div>
-
-
-<script>
-
-async function analyze(){
-
-let stock=document.getElementById("stock").value;
-
-let res=await fetch("/api/analyze?stock="+stock);
-
-let data=await res.json();
-
-document.getElementById("result").innerText=JSON.stringify(data,null,2);
-
+// LOGIN PROTECTION
+if(localStorage.getItem("user")!="logged"){
+window.location="login.html";
 }
 
-</script>
+// LOGOUT
+function logout(){
+localStorage.removeItem("user");
+window.location="login.html";
+}
 
-
-</body>
-
-</html>
-<a href="/portfolio.html" style="color:#00ff9c;">Portfolio AI</a>
-<div class="card">
-
-<h3>AI Multibagger Scanner</h3>
-
-<button onclick="loadMulti()">Find Multibaggers</button>
-
-<div id="multi"></div>
-
-</div>
-<h2>Live Market</h2>
-
-<button onclick="loadMarket()">Load Market</button>
-
-<div id="market"></div>
-<script>
-
+// LOAD LIVE MARKET
 async function loadMarket(){
 
 let res = await fetch("/api/market");
@@ -262,19 +69,99 @@ html += `
 
 });
 
-document.getElementById("market").innerHTML=html;
+document.getElementById("market").innerHTML = html;
 
 }
 
-</script>
-<script>
+
+// MULTIBAGGER SCANNER
+async function loadMulti(){
+
+let res = await fetch("/api/multibagger");
+
+let data = await res.json();
+
+let html="";
+
+data.stocks.forEach(s=>{
+
+html += `
+<div>
+<b>${s.name}</b>
+AI Score: ${s.score}
+</div>
+`;
+
+});
+
+document.getElementById("multi").innerHTML = html;
+
+}
+
+
+// PREMIUM CHECK
+function checkPremium(){
 
 if(localStorage.getItem("premium")!="yes"){
 
-alert("Premium Feature");
+alert("Premium feature. Upgrade required.");
 
 window.location="premium.html";
 
 }
 
+}
+
 </script>
+
+</head>
+
+
+<body>
+
+<h1>ShreeShyam AI Dashboard</h1>
+
+
+<div class="card">
+
+<h2>Live Market</h2>
+
+<button onclick="loadMarket()">Load Market</button>
+
+<div id="market"></div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>AI Multibagger Scanner</h2>
+
+<button onclick="loadMulti()">Find Multibaggers</button>
+
+<div id="multi"></div>
+
+</div>
+
+
+
+<div class="card">
+
+<h2>Premium Features</h2>
+
+<a href="premium.html">
+
+<button>Upgrade to Premium</button>
+
+</a>
+
+</div>
+
+
+<button onclick="logout()">Logout</button>
+
+
+</body>
+
+</html>
