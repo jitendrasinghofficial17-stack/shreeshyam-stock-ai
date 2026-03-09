@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>ShreeShyamStockAI</title>
 
 <style>
@@ -28,7 +29,7 @@ color:#4ade80;
 display:block;
 margin:15px 0;
 color:white;
-text-decoration:none;
+cursor:pointer;
 }
 
 .main{
@@ -66,20 +67,24 @@ border-radius:8px;
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="sidebar">
+
 <h2>StockAI</h2>
-<a>Dashboard</a>
-<a>AI Analyzer</a>
-<a>Multibagger Finder</a>
-<a>Portfolio</a>
-<a>Market News</a>
+
+<a onclick="showPage('dashboard')">Dashboard</a>
+<a onclick="showPage('analyzer')">AI Analyzer</a>
+<a onclick="showPage('multibagger')">Multibagger Finder</a>
+
 </div>
 
 <div class="main">
+
+<div id="dashboard">
 
 <h1>Market Overview</h1>
 
@@ -97,22 +102,59 @@ border-radius:8px;
 
 </div>
 
+<div id="multibagger" style="display:none">
+
+<h1>Multibagger Finder</h1>
+
+<div class="card">
+
+Possible Multibaggers:
+
+<ul>
+
+<li>Tata Elxsi</li>
+<li>KPIT Tech</li>
+<li>Dixon Technologies</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
 <script>
+
+function showPage(page){
+
+document.getElementById("dashboard").style.display="none";
+document.getElementById("multibagger").style.display="none";
+
+if(page==="dashboard"){
+document.getElementById("dashboard").style.display="block";
+}
+
+if(page==="multibagger"){
+document.getElementById("multibagger").style.display="block";
+}
+
+}
 
 async function analyzeStock(){
 
-const stock = document.getElementById("stock").value;
+const stock=document.getElementById("stock").value;
 
-if(stock==""){
+if(stock===""){
 alert("Enter stock name");
 return;
 }
 
 document.getElementById("result").innerHTML="Analyzing...";
 
-const res = await fetch("/api/analyze?stock="+stock);
+const res=await fetch("/api/analyze?stock="+stock);
 
-const data = await res.json();
+const data=await res.json();
 
 document.getElementById("result").innerHTML=data.result;
 
