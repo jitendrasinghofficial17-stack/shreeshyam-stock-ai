@@ -2,166 +2,160 @@
 <html>
 
 <head>
-
-<title>ShreeShyam AI Terminal</title>
+<title>ShreeShyamStockAI Terminal</title>
 
 <style>
 
 body{
-background:#0b0b0b;
-color:white;
+margin:0;
 font-family:Arial;
-text-align:center;
+background:#0b132b;
+color:white;
 }
 
-h1{
-margin-top:30px;
+.sidebar{
+width:220px;
+height:100vh;
+background:#111827;
+position:fixed;
+padding:20px;
 }
 
-button{
-padding:12px 25px;
-margin:10px;
-background:orange;
-border:none;
-font-size:16px;
-cursor:pointer;
+.sidebar h2{
+color:#4ade80;
+}
+
+.sidebar a{
+display:block;
+color:white;
+text-decoration:none;
+margin:15px 0;
+}
+
+.main{
+margin-left:240px;
+padding:20px;
 }
 
 .card{
-border:1px solid gray;
+background:#1f2937;
 padding:20px;
-margin:20px;
+border-radius:10px;
+margin-bottom:20px;
+}
+
+.market{
+display:flex;
+gap:20px;
+}
+
+.market div{
+background:#111827;
+padding:15px;
+border-radius:10px;
+}
+
+input{
+padding:10px;
+width:200px;
+}
+
+button{
+padding:10px;
+background:#4ade80;
+border:none;
+cursor:pointer;
 }
 
 </style>
 
+</head>
+
+<body>
+
+<div class="sidebar">
+
+<h2>StockAI</h2>
+
+<a href="#">Dashboard</a>
+<a href="#">AI Analyzer</a>
+<a href="#">Multibagger Finder</a>
+<a href="#">Portfolio</a>
+<a href="#">Market News</a>
+
+</div>
+
+<div class="main">
+
+<h1>Market Overview</h1>
+
+<div class="market">
+
+<div>
+NIFTY 50  
+<br>
+22,500  
+</div>
+
+<div>
+SENSEX  
+<br>
+74,200  
+</div>
+
+<div>
+BANKNIFTY  
+<br>
+48,100  
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>AI Stock Analyzer</h2>
+
+<input type="text" id="stock" placeholder="Enter stock">
+
+<button onclick="analyze()">Analyze</button>
+
+<p id="result"></p>
+
+</div>
+
+<div class="card">
+
+<h2>Watchlist</h2>
+
+<ul>
+
+<li>Reliance</li>
+<li>TCS</li>
+<li>Infosys</li>
+<li>HDFC Bank</li>
+
+</ul>
+
+</div>
+
+</div>
+
 <script>
 
-// LOGIN PROTECTION
-if(localStorage.getItem("user")!="logged"){
-window.location="login.html";
-}
+async function analyze(){
 
-// LOGOUT
-function logout(){
-localStorage.removeItem("user");
-window.location="login.html";
-}
+let stock=document.getElementById("stock").value
 
-// LOAD LIVE MARKET
-async function loadMarket(){
+let res=await fetch("/api/analyze?stock="+stock)
 
-let res = await fetch("/api/market");
+let data=await res.json()
 
-let data = await res.json();
-
-let html="";
-
-data.forEach(s=>{
-
-html += `
-<div>
-<b>${s.name}</b>
-₹${s.price}
-(${s.change.toFixed(2)}%)
-</div>
-`;
-
-});
-
-document.getElementById("market").innerHTML = html;
-
-}
-
-
-// MULTIBAGGER SCANNER
-async function loadMulti(){
-
-let res = await fetch("/api/multibagger");
-
-let data = await res.json();
-
-let html="";
-
-data.stocks.forEach(s=>{
-
-html += `
-<div>
-<b>${s.name}</b>
-AI Score: ${s.score}
-</div>
-`;
-
-});
-
-document.getElementById("multi").innerHTML = html;
-
-}
-
-
-// PREMIUM CHECK
-function checkPremium(){
-
-if(localStorage.getItem("premium")!="yes"){
-
-alert("Premium feature. Upgrade required.");
-
-window.location="premium.html";
-
-}
+document.getElementById("result").innerText =
+data.choices[0].message.content
 
 }
 
 </script>
 
-</head>
-
-
-<body>
-
-<h1>ShreeShyam AI Dashboard</h1>
-
-
-<div class="card">
-
-<h2>Live Market</h2>
-
-<button onclick="loadMarket()">Load Market</button>
-
-<div id="market"></div>
-
-</div>
-
-
-
-<div class="card">
-
-<h2>AI Multibagger Scanner</h2>
-
-<button onclick="loadMulti()">Find Multibaggers</button>
-
-<div id="multi"></div>
-
-</div>
-
-
-
-<div class="card">
-
-<h2>Premium Features</h2>
-
-<a href="premium.html">
-
-<button>Upgrade to Premium</button>
-
-</a>
-
-</div>
-
-
-<button onclick="logout()">Logout</button>
-
-
 </body>
-
 </html>
