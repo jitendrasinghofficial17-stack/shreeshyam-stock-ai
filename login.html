@@ -1,15 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ShreeShyam AI Login</title>
+<title>ShreeShyamStockAI Login</title>
 
 <style>
 
 body{
-font-family: Arial;
+font-family:Arial;
 background:#0b132b;
 display:flex;
 justify-content:center;
@@ -22,13 +20,8 @@ margin:0;
 background:white;
 padding:40px;
 border-radius:10px;
-width:320px;
+width:350px;
 text-align:center;
-box-shadow:0 10px 25px rgba(0,0,0,0.3);
-}
-
-h2{
-margin-bottom:20px;
 }
 
 input{
@@ -36,32 +29,32 @@ width:100%;
 padding:12px;
 margin:10px 0;
 border:1px solid #ccc;
-border-radius:5px;
+border-radius:6px;
 }
 
 button{
 width:100%;
 padding:12px;
-background:#00c853;
+background:#4CAF50;
 border:none;
 color:white;
-font-size:16px;
+font-size:18px;
 border-radius:6px;
 cursor:pointer;
 }
 
 button:hover{
-background:#009624;
+background:#3e8e41;
 }
 
-.subscribe{
-margin-top:15px;
+a{
 display:block;
-color:#0066ff;
-text-decoration:none;
+margin-top:15px;
+font-size:18px;
 }
 
 </style>
+
 </head>
 
 <body>
@@ -78,9 +71,7 @@ text-decoration:none;
 
 <button onclick="login()">Login</button>
 
-<a class="subscribe" href="subscribe.html">
-Subscribe ₹2999 / Month
-</a>
+<a href="subscribe.html">Subscribe ₹2999 / Month</a>
 
 </div>
 
@@ -88,13 +79,8 @@ Subscribe ₹2999 / Month
 
 function login(){
 
-let email=document.getElementById("email").value;
-let password=document.getElementById("password").value;
-
-if(email=="" || password==""){
-alert("Please enter email and password");
-return;
-}
+var email=document.getElementById("email").value;
+var password=document.getElementById("password").value;
 
 if(email=="admin@shreeshyam.com" && password=="123456"){
 
@@ -104,9 +90,7 @@ window.location.href="dashboard.html";
 
 else{
 
-alert("Invalid Login. Please subscribe first.");
-
-window.location.href="subscribe.html";
+alert("Invalid login details");
 
 }
 
