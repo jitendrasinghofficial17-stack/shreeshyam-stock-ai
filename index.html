@@ -1,19 +1,18 @@
-<input type="text" id="stock" placeholder="Enter Stock Name">
-
-<button onclick="analyzeStock()">Analyze</button>
 <script>
+async function analyzeStock(){
 
-function analyzeStock(){
+const stock = document.getElementById("stock").value;
 
-let stock = document.getElementById("stock").value;
-
-if(stock == ""){
-alert("Please enter stock name");
+if(!stock){
+alert("Enter stock name");
 return;
 }
 
-alert("AI analysis for: " + stock);
+const res = await fetch(`/api/analyze?stock=${stock}`);
+
+const data = await res.json();
+
+alert(data.result);
 
 }
-
 </script>
