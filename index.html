@@ -1,56 +1,19 @@
-<!DOCTYPE html>
-<html>
+<input type="text" id="stock" placeholder="Enter Stock Name">
 
-<head>
-<title>ShreeShyamStockAI</title>
+<button onclick="analyzeStock()">Analyze</button>
+<script>
 
-<style>
+function analyzeStock(){
 
-body{
-font-family:Arial;
-text-align:center;
-background:#0f172a;
-color:white;
-padding:40px;
+let stock = document.getElementById("stock").value;
+
+if(stock == ""){
+alert("Please enter stock name");
+return;
 }
 
-h1{
-font-size:45px;
+alert("AI analysis for: " + stock);
+
 }
 
-input{
-padding:12px;
-width:250px;
-border-radius:6px;
-border:none;
-margin-top:20px;
-}
-
-button{
-padding:12px 20px;
-background:#22c55e;
-border:none;
-color:white;
-border-radius:6px;
-margin-left:10px;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<h1>ShreeShyamStockAI</h1>
-
-<h3>AI Powered Stock Analysis Platform</h3>
-
-<p>Enter stock name to analyze</p>
-
-<input placeholder="Enter Stock Name">
-
-<button>Analyze</button>
-
-</body>
-
-</html>
+</script>
