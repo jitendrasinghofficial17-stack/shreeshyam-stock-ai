@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-
 <title>ShreeShyamStockAI</title>
 
 <style>
@@ -59,22 +58,25 @@ border-radius:5px;
 cursor:pointer;
 }
 
-</style>
+.result{
+margin-top:20px;
+background:#111827;
+padding:15px;
+border-radius:8px;
+}
 
+</style>
 </head>
 
 <body>
 
 <div class="sidebar">
-
 <h2>StockAI</h2>
-
 <a>Dashboard</a>
 <a>AI Analyzer</a>
 <a>Multibagger Finder</a>
 <a>Portfolio</a>
 <a>Market News</a>
-
 </div>
 
 <div class="main">
@@ -88,6 +90,8 @@ cursor:pointer;
 <input id="stock" placeholder="Enter stock name">
 
 <button onclick="analyzeStock()">Analyze</button>
+
+<div id="result" class="result"></div>
 
 </div>
 
@@ -104,11 +108,13 @@ alert("Enter stock name");
 return;
 }
 
-const response = await fetch("/api/analyze?stock="+stock);
+document.getElementById("result").innerHTML="Analyzing...";
 
-const data = await response.json();
+const res = await fetch("/api/analyze?stock="+stock);
 
-alert(data.result);
+const data = await res.json();
+
+document.getElementById("result").innerHTML=data.result;
 
 }
 
