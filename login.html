@@ -1,19 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Login - ShreeShyamStockAI</title>
+
+<style>
+
+body{
+font-family:Arial;
+background:#0b132b;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+}
+
+.box{
+background:white;
+padding:30px;
+border-radius:10px;
+text-align:center;
+width:300px;
+}
+
+input{
+width:100%;
+padding:10px;
+margin:10px 0;
+}
+
+button{
+width:100%;
+padding:10px;
+background:green;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="box">
+
+<h2>ShreeShyamStockAI</h2>
+
 <input type="email" id="email" placeholder="Enter Email">
 
 <input type="password" id="password" placeholder="Enter Password">
 
 <button onclick="login()">Login</button>
 
+</div>
+
 <script>
 
 function login(){
 
-var email = document.getElementById("email").value;
-var password = document.getElementById("password").value;
+var email=document.getElementById("email").value;
+var password=document.getElementById("password").value;
 
-if(email === "admin@shreeshyam.com" && password === "123456"){
+if(email==="admin@shreeshyam.com" && password==="123456"){
 
-window.location.href = "dashboard.html";
+window.location.href="dashboard.html";
 
 }
 
@@ -26,3 +78,6 @@ alert("Wrong email or password");
 }
 
 </script>
+
+</body>
+</html>
