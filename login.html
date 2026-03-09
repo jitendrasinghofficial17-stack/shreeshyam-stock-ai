@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <title>Login</title>
 
 <style>
+
 body{
 background:#0b132b;
 font-family:Arial;
@@ -30,12 +32,13 @@ margin:10px 0;
 button{
 width:100%;
 padding:10px;
-background:#28a745;
-color:white;
+background:#4ade80;
 border:none;
 cursor:pointer;
 }
+
 </style>
+
 </head>
 
 <body>
@@ -48,23 +51,27 @@ cursor:pointer;
 
 <input type="password" id="password" placeholder="Enter Password">
 
-<button onclick="login()">Login</button>
+<button onclick="loginUser()">Login</button>
 
 </div>
 
 <script>
 
-function login(){
+function loginUser(){
 
-var email=document.getElementById("email").value;
-var password=document.getElementById("password").value;
+let email=document.getElementById("email").value
+let password=document.getElementById("password").value
 
 if(email==="admin@shreeshyam.com" && password==="123456"){
-window.location.href="dashboard.html";
+
+window.location.href="dashboard.html"
+
 }
 
 else{
-alert("Wrong email or password");
+
+alert("Wrong email or password")
+
 }
 
 }
