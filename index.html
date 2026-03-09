@@ -1,18 +1,37 @@
+<h2>AI Stock Analyzer</h2>
+
 <input id="stock" placeholder="Enter stock name">
-<button onclick="analyzeStock()">Analyze</button>
-<div id="result"></div>
+
+<button id="analyzeBtn">Analyze</button>
+
+<div id="result" style="margin-top:20px;font-size:18px;"></div>
 <script>
 
-async function analyzeStock(){
+document.getElementById("analyzeBtn").addEventListener("click", async function(){
 
 const stock = document.getElementById("stock").value;
 
-const res = await fetch("/api/analyze?stock="+stock);
+if(!stock){
+alert("Enter stock name");
+return;
+}
 
-const data = await res.json();
+document.getElementById("result").innerText = "Analyzing...";
+
+try{
+
+const response = await fetch("/api/analyze?stock=" + stock);
+
+const data = await response.json();
 
 document.getElementById("result").innerText = data.result;
 
+}catch(e){
+
+document.getElementById("result").innerText = "Error loading analysis";
+
 }
+
+});
 
 </script>
